@@ -37,7 +37,7 @@ public class ChooseAreaActivity extends Activity {
     //选中的省份
     private Province selectedProvince;
     //选中的城市
-    private City seleceedCity;
+    private City selectedCity;
     //当前选中的级别
     private int currentLevel;
 
@@ -58,7 +58,7 @@ public class ChooseAreaActivity extends Activity {
                     selectedProvince=provinceList.get(position);
                     queryCities();
                 }else if (currentLevel==LEVEL_CITY){
-                    seleceedCity=cityList.get(position);
+                    selectedCity=cityList.get(position);
                     queryCounties();
                 }
             }
@@ -103,7 +103,7 @@ public class ChooseAreaActivity extends Activity {
 
     private void queryCounties() {
 
-        countyList=coolWeatherDB.loadCounties(seleceedCity.getId());
+        countyList=coolWeatherDB.loadCounties(selectedCity.getId());
         if (countyList.size()>0){
             dataList.clear();
             for (County county:countyList){
@@ -111,10 +111,10 @@ public class ChooseAreaActivity extends Activity {
             }
             adapter.notifyDataSetChanged();
             listView.setSelection(0);
-            titleText.setText(seleceedCity.getCityName());
+            titleText.setText(selectedCity.getCityName());
             currentLevel=LEVEL_COUNTY;
         }else {
-            queryFromServer(seleceedCity.getCityCode(),"county");
+            queryFromServer(selectedCity.getCityCode(),"county");
         }
     }
 
@@ -138,7 +138,7 @@ public class ChooseAreaActivity extends Activity {
                             response,selectedProvince.getId());
                 }else  if ("county".equals(type)){
                     result=Utility.handlerCountiesResponse(coolWeatherDB,
-                            response,seleceedCity.getId());
+                            response,selectedCity.getId());
                 }
                 if (result){
                     //通过runOnUiThread()方法回到主线程处理逻辑

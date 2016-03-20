@@ -90,7 +90,7 @@ public class CoolWeatherDB {
                 city.setProvinceId(provinceId);
                 list.add(city);
             }while (cursor.moveToNext());
-        }
+                                                                                                                                                                                                       }
         return list;
     }
 
