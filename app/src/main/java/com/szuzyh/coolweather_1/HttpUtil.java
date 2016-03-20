@@ -37,8 +37,10 @@ public class HttpUtil {
                         listener.onFinish(response.toString());
                     }
                 } catch (Exception e) {
-                    //回调onError方法
-                    listener.onError(e);
+                    if (listener != null) {
+                        // 回调onError()方法
+                        listener.onError(e);
+                    }
                 } finally {
                     if (connection!=null){
                         connection.disconnect();
