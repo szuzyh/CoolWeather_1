@@ -1,5 +1,6 @@
 package com.szuzyh.coolweather_1;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,7 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class WeatherActivity extends AppCompatActivity implements View.OnClickListener {
+public class WeatherActivity extends Activity implements View.OnClickListener {
 
     private LinearLayout weatherInfoLayout;
     //用于显示城市名
@@ -35,7 +36,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.weather_layout);
         //初始化各控件
         weatherInfoLayout= (LinearLayout) findViewById(R.id.weather_info_layout);
@@ -149,6 +150,9 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         publishText.setText(prefs.getString("publish_time"," "));
         currentDateText.setText(prefs.getString("current_date", " "));
         weatherInfoLayout.setVisibility(View.VISIBLE);
+        cityNameText.setVisibility(View.VISIBLE);
+        Intent intent=new Intent(this,AutoUpdateService.class);
+        startService(intent);
     }
 
 
